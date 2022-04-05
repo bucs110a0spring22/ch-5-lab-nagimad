@@ -24,114 +24,155 @@ Functions you must implement:
   playDarts(myturtle=None) - a simulated game of darts between two players
   montePi(myturtle=None, num_darts=0) - simulation algorithm returns the approximation of pi
 '''
-import turtle
-import random
-import time
+
 
 #########################################################
 #                   Your Code Goes Below                #
 #########################################################
-def drawSquare(x,y,width):
-    myPen.penup()
-    myPen.goto(x,y)
-    myPen.pensize(3)
-    myPen.color("#333333")
-    myPen.pendown()
-    for side in range(0,4):
-        myPen.forward(width)
-        myPen.right(90)
-        myPen.pensize(1)
-def drawCircle(x,y,radius):
-    myPen.penup()
-    myPen.goto(x,y-radius)
-    myPen.pensize(2)
-    myPen.color("#333333")
-    myPen.pendown()
-    myPen.circle(radius)
-    myPen.pensize(1)
+import turtle
+import random
 
-def drawDot(x,y,color):
-    myPen.penup()
-    myPen.goto(x,y-1)
-    myPen.pendown()
-    myPen.fillcolor(color)
-    myPen.color(color)
-    myPen.begin_fill()
-    myPen.circle(1)
-    myPen.end_fill()
-    radius=180
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+    myturtle.up()
+    myturtle.goto(top_left_x, top_left_y)
+    myturtle.down()
+    for i in range(4):
+      myturtle.forward(width)
+      myturtle.right(90)
+    myturtle.up()
 
-color = "#000000"
-total = 2500
-totalIn = 0
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+    myturtle.goto(x_start, y_start)
+    myturtle.down()
+    myturtle.goto(x_end, y_end)
+    myturtle.up()
+def drawCircle(myturtle=None, radius=0):
+    myturtle.up()
+    myturtle.goto(0,-1)
+    myturtle.down()
+    myturtle.circle(radius, 360, 100)
+    myturtle.up()
+  
+def setUpDartboard(myscreen=None, myturtle=None):
+  myscreen.setworldcoordinates(-2,-2, 2, 2)
+  drawSquare(myturtle, 2, -1, 1)   
+  drawLine(myturtle, -1, 0, 1, 0)
+  drawLine(myturtle, 0, -1, 0, 1 )
+  drawCircle(myturtle, 1)
 
-drawSquare(-radius,radius,2*radius)
-drawCircle(0,0,radius)
 
-for dots in range(0,total):
-    x = random.randint(-radius,radius)
-    y = random.randint(-radius,radius)
 
-    distance = (x**2 + y**2)**0.5
-    if distance<radius:
-        color = "#FF0000"
-        totalIn += 1
+def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  distance = myturtle.distance(circle_center_x, circle_center_y)
+  if distance <= radius:
+    return True
+  else:
+    return False
+    
+def throwDart(myturtle=None):
+    myturtle.up()
+    random_x = random.uniform(-1,1)
+    random_y = random.uniform(-1,1)
+    myturtle.goto(random_x, random_y)
+    if isInCircle(myturtle, 0, 0, 1) is True:
+      myturtle.dot(10, "red")
     else:
-        color = "#0000FF"
+      myturtle.dot(10, "blue")
+  
 
-    drawDot(x,y,color)
+    
+def playDarts(myturtle=None):
+  score_a = 0
+  score_b = 0
+ 
+  for i in range(10):
+    throwDart(myturtle)
+    if isInCircle(myturtle, 0,0,1) is True:
+      score_a = score_a + 1
+      
+    throwDart(myturtle)
+    if isInCircle(myturtle, 0,0,1) is True:
+      score_b = score_b + 1
 
-myPen.getscreen().update()
+  if score_a > score_b:
+    print("player A has won")
+  elif score_a < score_b:
+    print("player B has won")
+  else:
+    print("the game was a tie")
+      
+
+#Part C
+
+def montePi(myturtle=None, num_darts=0):
+  inside_count=0
+  for i in range(num_darts):
+    throwDart(myturtle)
+    if isInCircle(myturtle, 0, 0, 1) is True:
+      inside_count = inside_count + 1
+  
+  pi = inside_count / num_darts * 4
+  return pi
+
+#MIDTERM
+  
 
 
-pi = 4*(totalIn/total)
-print("Pi Estimation:" + str(pi))
+
+   
+    
+ 
+#########################################################
 
 
 #########################################################
 #         Do not alter any code below here              #
 #       Your code must work with the main proivided     #
 #########################################################
+
 def main():
-    # Get number of darts for simulation from user
-    # Note continuation character <\> so we don't go over 78 columns:
-    print("This is a program that simulates throwing darts at a dartboard\n" \
+  # Get number of darts for simulation from user
+  # Note continuation character <\> so we don't go over 78 columns:
+  print("This is a program that simulates throwing darts at a dartboard\n" \
         "in order to approximate pi: The ratio of darts in a unit circle\n"\
         "to the total number of darts in a 2X2 square should be\n"\
         "approximately  equal to pi/4")
-    print("=========== Part A ===========")
+  print("=========== Part A ===========")
 
     #Create window, turtle, set up window as dartboard
-    window = turtle.Screen()
-    darty = turtle.Turtle()
-    darty.speed(0) # as fast as it will go!
-setUpDartboard(window, darty)
+  window = turtle.Screen()
+  darty = turtle.Turtle()
+  darty.speed(0) # as fast as it will go!
+  setUpDartboard(window, darty)
 
     # Loop for 10 darts to test your code
-for i in range(10):
+  for i in range(10):
         throwDart(darty)
-    print("\tPart A Complete...")
-    print("=========== Part B ===========")
-    darty.clear()
-    setUpDartboard(window, darty)
-    playDarts(darty)
-    print("\tPart B Complete...")
+  print("\tPart A Complete...")
+  print("=========== Part B ===========")
+  darty.clear()
+  setUpDartboard(window, darty)
+  playDarts(darty)
+  print("\tPart B Complete...")
     # Keep the window up until dismissed
-    print("=========== Part C ===========")
-    darty.clear()
-    setUpDartboard(window, darty)
+  print("=========== Part C ===========")
+  darty.clear()
+  setUpDartboard(window, darty)
     
     # Includes the following code in order to update animation periodically
     # instead of for each throw (saves LOTS of time):
-    BATCH_OF_DARTS = 5000
-    window.tracer(BATCH_OF_DARTS)
+  BATCH_OF_DARTS = 5000
+  window.tracer(BATCH_OF_DARTS)
 
     # Conduct simulation and print result
-    number_darts = int(input("\nPlease input the number of darts to be thrown in the simulation:  "))
-    approx_pi = montePi(darty, number_darts)
-    print("\nThe estimation of pi using "+str(number_darts)+" virtual darts is " + str(approx_pi))
-    print("\tPart C Complete...")
-    # Don't hide or mess with window while it's 'working'
-    window.exitonclick()
+  number_darts = int(input("\nPlease input the number of darts to be thrown in the simulation:  "))
+  approx_pi = montePi(darty, number_darts)
+  print("\nThe estimation of pi using "+str(number_darts)+" virtual darts is " + str(approx_pi))
+  print("\tPart C Complete...")
+  
+
+
+  window.exitonclick() 
+  
 
 main()

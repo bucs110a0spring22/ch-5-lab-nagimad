@@ -12,7 +12,7 @@ Summary of function(s) added:
 
 
 Summary of Feature Added:
-Adds text 
+calculate your score
 ## KNOWN BUGS AND INCOMPLETE PARTS:
 n/a
 
@@ -21,3 +21,4 @@ n/a
 
 ## MISCELLANEOUS COMMENTS:
 As much as i tried it won't run
+Also, can my lab #5 be regraded

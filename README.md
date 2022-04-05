@@ -1,25 +1,23 @@
 #### CS 110
-# Chapter 5 - Lab - Selection
-
-### [Assignment Description](https://docs.google.com/document/d/1QfPsRfo1kZoQw4p0DhjxZskNfE0eLAV6Z6SgPSleDM4/edit?usp=sharing)
+# Midterm - Python Programming
 
 ***
 
 _Replace anything surrounded by the `< >` symbols._
 
 ## SUMMARY:
- Turtle Drat Game
+What did you clean up?: Followed the instruction and got the code to actually work. My original submission for chapter 5 was not complete
 
-## GRACE DAYS
-Grace days used for this assignment: 1
+Summary of function(s) added:
 
-Grace days remaining: 4/5
 
+Summary of Feature Added:
+Adds text 
 ## KNOWN BUGS AND INCOMPLETE PARTS:
- part B
+n/a
 
 ## REFERENCES:
- used the python library
+ python library 
 
 ## MISCELLANEOUS COMMENTS:
- it does not run, at all. sorry
+As much as i tried it won't run

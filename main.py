@@ -75,9 +75,9 @@ def throwDart(myturtle=None):
     random_y = random.uniform(-1,1)
     myturtle.goto(random_x, random_y)
     if isInCircle(myturtle, 0, 0, 1) is True:
-      myturtle.dot(10, "red")
+      myturtle.dot(10, "purple")
     else:
-      myturtle.dot(10, "blue")
+      myturtle.dot(10, "yellow")
   
 
     
@@ -115,10 +115,38 @@ def montePi(myturtle=None, num_darts=0):
   return pi
 
 #MIDTERM
+myturtle = turtle.Turtle()
+
+myturtle.penup()
+myturtle.goto(0,170)
+myturtle.write("Let's start the game!")
+myturtle.hideturtle()
+
+def writeScore(text):
+  myturtle.penup()
+  myturtle.goto(-80, 170)
+  myturtle.color("yellow")
+  myturtle.write("Let's start the game!")
+def calculateScore(random_x, random_y):
+  score = 0
+  distance = 0
+  distance = (random_x**2+random_y**2)**0.5
+  random_x = random.uniform(-1,1)
+  random_y = random.uniform(-1,1)
+  angle = (random_x, random_y)
+  if distance <= 144:
+    score = 50 
+  elif distance <= 20:
+    score = 25
+  else:
+    indx = (angle + pi/12)*pi % 30
+    score = A[indx]
+    if 64 <= distance <= 74:
+      score *= 3 
+    if 134 <= distance <= 144:
+      score *= 2 
   
-
-
-
+  return score
    
     
  
@@ -170,9 +198,10 @@ def main():
   print("\nThe estimation of pi using "+str(number_darts)+" virtual darts is " + str(approx_pi))
   print("\tPart C Complete...")
   
-
-
-  window.exitonclick() 
-  
+#midterm
+random_x = random.uniform(-1,1)
+random_y = random.uniform(-1,1)
+score = calculateScore(random_x, random_y)
+writeScore("Your Score: + " + str(score))
 
 main()
